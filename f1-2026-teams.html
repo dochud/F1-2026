@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 2026 – Teams & Drivers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dark: #0a0a0a;
+    --card: #141414;
+    --card2: #1a1a1a;
+    --text: #F0F0F0;
+    --muted: #777;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    padding-bottom: 60px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(160deg, #0a0a0a 0%, #111 60%, #0a0a0a 100%);
+    border-bottom: 3px solid #E8002D;
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'GRID';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 260px;
+    color: rgba(255,255,255,0.025);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #E8002D;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .back-link:hover { opacity: 0.8; }
+  .hero-badge {
+    display: inline-block;
+    background: #E8002D;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 9vw, 70px);
+    line-height: 0.95;
+    position: relative;
+  }
+  .hero h1 span { color: #E8002D; }
+  .hero-sub {
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--muted);
+    position: relative;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 18px; }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #E8002D;
+    margin: 36px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232,0,45,0.2);
+  }
+
+  /* ─── TEAM CARD ─── */
+  .team-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .team-card:hover { border-color: rgba(255,255,255,0.13); }
+
+  .team-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 16px;
+    border-left: 5px solid;
+    position: relative;
+  }
+  .team-color-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .team-name-block { flex: 1; }
+  .team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+  .team-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .engine-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    text-transform: uppercase;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .team-body {
+    padding: 0 22px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 480px) { .team-body { grid-template-columns: 1fr; } }
+
+  .driver-row {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .driver-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    min-width: 36px;
+    text-align: center;
+  }
+  .driver-info {}
+  .driver-name {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .driver-detail {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .rookie-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(0,196,140,0.15);
+    color: #00C48C;
+    border: 1px solid rgba(0,196,140,0.3);
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+  .champ-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(245,197,24,0.15);
+    color: #F5C518;
+    border: 1px solid rgba(245,197,24,0.35);
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+  .return-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(0,153,218,0.15);
+    color: #0099DA;
+    border: 1px solid rgba(0,153,218,0.35);
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+
+  .team-note {
+    padding: 0 22px 16px;
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: -4px;
+  }
+  .team-note strong { color: #ddd; }
+
+  /* ─── ENGINE KEY ─── */
+  .engine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .engine-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .engine-card .eng-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .engine-card .eng-users {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .eng-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  /* ─── QUICK REF TABLE ─── */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .ref-table th {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: #E8002D;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(232,0,45,0.2);
+  }
+  .ref-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    color: #ccc;
+    vertical-align: middle;
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .num-cell {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    width: 48px;
+  }
+  .color-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 7px;
+    vertical-align: middle;
+  }
+
+  /* ─── DIVIDER ─── */
+  .checkered {
+    height: 5px;
+    background-image: repeating-linear-gradient(90deg, #fff 0, #fff 10px, transparent 10px, transparent 20px),
+      repeating-linear-gradient(0deg, transparent 0, transparent 2.5px, #fff 2.5px, #fff 5px);
+    background-color: #333;
+    opacity: 0.1;
+    border-radius: 2px;
+    margin: 32px 0 0;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+  }
+  .footer strong { color: #E8002D; }
+  .footer a { color: #E8002D; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* ─── NAV ─── */
+  .topnav {
+    background: #111;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 48px;
+  }
+  .topnav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: #E8002D;
+    letter-spacing: 2px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: #aaa;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .topnav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .topnav-links a {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .nav-active { background: rgba(232,0,45,0.15); color: #E8002D !important; }
+  .nav-inactive { color: #aaa; }
+  .nav-inactive:hover { background: rgba(255,255,255,0.06); color: #fff !important; }
+  .nav-external { color: #666 !important; border: 1px solid rgba(255,255,255,0.08); }
+  .nav-external:hover { background: rgba(255,255,255,0.05); color: #aaa !important; }
+  .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); margin: 0 6px; flex-shrink: 0; }
+
+  @media (max-width: 600px) {
+    .nav-hamburger { display: flex; }
+    .topnav-links {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 10px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .topnav-links.open { display: flex; }
+    .topnav-links a {
+      padding: 11px 14px;
+      font-size: 13px;
+      border-radius: 7px;
+    }
+    .nav-divider { display: none; }
+    .nav-external { border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-logo" href="f1-2026-guide.html">F1 2026</a>
+    <button class="nav-hamburger" id="burger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topnav-links" id="navlinks">
+      <a href="f1-2026-guide.html" class="nav-inactive">🏁 Rules Guide</a>
+      <a href="f1-2026-teams.html" class="nav-active">🏎️ Teams &amp; Drivers</a>
+      <div class="nav-divider"></div>
+      <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">Drivers Standings ↗</a>
+      <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">Teams Standings ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-badge">🏎️ 2026 SEASON</div>
+  <h1>Teams <span>&</span><br>Drivers</h1>
+  <p class="hero-sub">All 11 teams · 22 drivers · Who drives what number</p>
+</div>
+
+<div class="container">
+
+  <!-- ══ ENGINE KEY ══ -->
+  <div class="section-label">ENGINE SUPPLIERS IN 2026</div>
+  <div class="engine-grid">
+    <div class="engine-card">
+      <div class="eng-name" style="color:#29f4d2">Mercedes</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#29f4d2"></span>Mercedes</div>
+        <div><span class="eng-dot" style="background:#0090d0"></span>Alpine</div>
+        <div><span class="eng-dot" style="background:#37BEDD"></span>McLaren</div>
+        <div><span class="eng-dot" style="background:#005AFF"></span>Williams</div>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-name" style="color:#E8002D">Ferrari</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#E8002D"></span>Ferrari</div>
+        <div><span class="eng-dot" style="background:#b6babd"></span>Haas</div>
+        <div><span class="eng-dot" style="background:#fff"></span>Cadillac</div>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-name" style="color:#3671c6">Red Bull / Ford</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#3671c6"></span>Red Bull Racing</div>
+        <div><span class="eng-dot" style="background:#6692ff"></span>Racing Bulls</div>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-name" style="color:#00665e">Honda</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#006f62"></span>Aston Martin</div>
+        <div style="color:#555;font-size:11px;margin-top:4px">Honda's standalone return – previously powered Red Bull</div>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="eng-name" style="color:#b3b3b3">Audi</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#c0c0c0"></span>Audi (works team)</div>
+        <div style="color:#555;font-size:11px;margin-top:4px">Brand new to F1 — took over the Sauber team</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkered"></div>
+
+  <!-- ══ TEAMS ══ -->
+  <div class="section-label">ALL 11 TEAMS</div>
+
+  <!-- McLAREN -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#FF8000">
+      <div class="team-color-dot" style="background:#FF8000">M</div>
+      <div class="team-name-block">
+        <div class="team-name">McLaren</div>
+        <div class="team-meta">
+          <span>🏆 Reigning Constructors' Champions</span>
+          <span>📍 Woking, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#FF8000">1</div>
+        <div class="driver-info">
+          <div class="driver-name">Lando Norris <span class="champ-tag">🏆 CHAMP</span></div>
+          <div class="driver-detail">🇬🇧 British · Age 25 · 7th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#FF8000">81</div>
+        <div class="driver-info">
+          <div class="driver-name">Oscar Piastri</div>
+          <div class="driver-detail">🇦🇺 Australian · Age 24 · 4th F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Defending constructors' title for a third straight year. Norris carries #1 as reigning world champion — the first time he's used it.</div>
+  </div>
+
+  <!-- MERCEDES -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#29f4d2">
+      <div class="team-color-dot" style="background:#29f4d2;color:#000">W</div>
+      <div class="team-name-block">
+        <div class="team-name">Mercedes-AMG</div>
+        <div class="team-meta">
+          <span>⚡ Works team</span>
+          <span>📍 Brackley, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#29f4d2">63</div>
+        <div class="driver-info">
+          <div class="driver-name">George Russell</div>
+          <div class="driver-detail">🇬🇧 British · Age 27 · 8th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#29f4d2">12</div>
+        <div class="driver-info">
+          <div class="driver-name">Kimi Antonelli</div>
+          <div class="driver-detail">🇮🇹 Italian · Age 19 · 2nd F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Early testing suggested Mercedes has a big advantage with the new rules — pre-season bookies' favourite for the constructors' title.</div>
+  </div>
+
+  <!-- RED BULL -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#3671c6">
+      <div class="team-color-dot" style="background:#3671c6">RB</div>
+      <div class="team-name-block">
+        <div class="team-name">Red Bull Racing</div>
+        <div class="team-meta">
+          <span>⚡ Works team + Ford partner</span>
+          <span>📍 Milton Keynes, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#3671c6;border-color:#3671c6">RB / Ford</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#3671c6">3</div>
+        <div class="driver-info">
+          <div class="driver-name">Max Verstappen</div>
+          <div class="driver-detail">🇳🇱 Dutch · Age 28 · 12th F1 season · 4× World Champ</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#3671c6">6</div>
+        <div class="driver-info">
+          <div class="driver-name">Isack Hadjar</div>
+          <div class="driver-detail">🇫🇷 French · Age 21 · 2nd F1 season · Promoted from RB</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Verstappen switches to #3 (his long-coveted number, freed up by Ricciardo's retirement). Ford return to F1 for the first time since 2004.</div>
+  </div>
+
+  <!-- FERRARI -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#E8002D">
+      <div class="team-color-dot" style="background:#E8002D">SF</div>
+      <div class="team-name-block">
+        <div class="team-name">Scuderia Ferrari</div>
+        <div class="team-meta">
+          <span>⚡ Works team</span>
+          <span>📍 Maranello, Italy</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#E8002D">16</div>
+        <div class="driver-info">
+          <div class="driver-name">Charles Leclerc</div>
+          <div class="driver-detail">🇲🇨 Monégasque · Age 28 · 9th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#E8002D">44</div>
+        <div class="driver-info">
+          <div class="driver-name">Lewis Hamilton</div>
+          <div class="driver-detail">🇬🇧 British · Age 41 · 20th F1 season · 7× World Champ</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Arguably the most star-studded driver pairing in F1 history — two of the sport's greatest talents sharing a garage. Ferrari were winless in 2025 and will be hungry to bounce back.</div>
+  </div>
+
+  <!-- ASTON MARTIN -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#006f62">
+      <div class="team-color-dot" style="background:#006f62">AM</div>
+      <div class="team-name-block">
+        <div class="team-name">Aston Martin Aramco</div>
+        <div class="team-meta">
+          <span>🔧 Honda works engine (new for 2026)</span>
+          <span>📍 Silverstone, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#e00024;border-color:#e00024">Honda</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#006f62">14</div>
+        <div class="driver-info">
+          <div class="driver-name">Fernando Alonso</div>
+          <div class="driver-detail">🇪🇸 Spanish · Age 44 · 24th F1 season · 2× World Champ</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#006f62">18</div>
+        <div class="driver-info">
+          <div class="driver-name">Lance Stroll</div>
+          <div class="driver-detail">🇨🇦 Canadian · Age 27 · 10th F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Adrian Newey (the legendary car designer who built Red Bull's championship cars) joined Aston Martin. This is his first full season at the wheel. Big expectations!</div>
+  </div>
+
+  <!-- WILLIAMS -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#005AFF">
+      <div class="team-color-dot" style="background:#005AFF">W</div>
+      <div class="team-name-block">
+        <div class="team-name">Williams Racing</div>
+        <div class="team-meta">
+          <span>📍 Grove, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#005AFF">23</div>
+        <div class="driver-info">
+          <div class="driver-name">Alexander Albon</div>
+          <div class="driver-detail">🇹🇭 Thai-British · Age 29 · 7th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#005AFF">55</div>
+        <div class="driver-info">
+          <div class="driver-name">Carlos Sainz</div>
+          <div class="driver-detail">🇪🇸 Spanish · Age 31 · 12th F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Sainz scored two podiums in his first year with Williams in 2025, lifting the historic team back into regular points-scoring form.</div>
+  </div>
+
+  <!-- ALPINE -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#0090d0">
+      <div class="team-color-dot" style="background:#0090d0">A</div>
+      <div class="team-name-block">
+        <div class="team-name">Alpine F1 Team</div>
+        <div class="team-meta">
+          <span>🔧 Switched from Renault to Mercedes engines</span>
+          <span>📍 Enstone, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#0090d0">10</div>
+        <div class="driver-info">
+          <div class="driver-name">Pierre Gasly</div>
+          <div class="driver-detail">🇫🇷 French · Age 29 · 9th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#0090d0">43</div>
+        <div class="driver-info">
+          <div class="driver-name">Franco Colapinto</div>
+          <div class="driver-detail">🇦🇷 Argentine · Age 22 · 2nd F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Alpine dropped their Renault engine after years of poor results — the first season without a Renault-badged engine since 2000.</div>
+  </div>
+
+  <!-- RACING BULLS -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#6692ff">
+      <div class="team-color-dot" style="background:#6692ff">RB</div>
+      <div class="team-name-block">
+        <div class="team-name">Visa Cash App RB</div>
+        <div class="team-meta">
+          <span>🔧 Red Bull's sister team · Develops future RB stars</span>
+          <span>📍 Faenza, Italy</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#3671c6;border-color:#3671c6">RB / Ford</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#6692ff">30</div>
+        <div class="driver-info">
+          <div class="driver-name">Liam Lawson</div>
+          <div class="driver-detail">🇳🇿 New Zealander · Age 23 · 3rd F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#6692ff">41</div>
+        <div class="driver-info">
+          <div class="driver-name">Arvid Lindblad <span class="rookie-tag">ROOKIE</span></div>
+          <div class="driver-detail">🇬🇧 British (Swedish heritage) · Age 18 · F1 debut</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Lindblad is the only true rookie on the 2026 grid, aged just 18. Red Bull's hottest prospect — comparisons to a young Lando Norris are already flying around.</div>
+  </div>
+
+  <!-- HAAS -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#b6babd">
+      <div class="team-color-dot" style="background:#b6babd;color:#000">H</div>
+      <div class="team-name-block">
+        <div class="team-name">MoneyGram Haas</div>
+        <div class="team-meta">
+          <span>🇺🇸 The original American F1 team</span>
+          <span>📍 Kannapolis, USA / Banbury, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#b6babd">31</div>
+        <div class="driver-info">
+          <div class="driver-name">Esteban Ocon</div>
+          <div class="driver-detail">🇫🇷 French · Age 29 · 9th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#b6babd">87</div>
+        <div class="driver-info">
+          <div class="driver-name">Oliver Bearman</div>
+          <div class="driver-detail">🇬🇧 British · Age 19 · 2nd F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Bearman is one of the most exciting young Brits in F1 — dubbed a future Ferrari driver by many in the paddock.</div>
+  </div>
+
+  <!-- AUDI -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#c0c0c0">
+      <div class="team-color-dot" style="background:#c0c0c0;color:#000">A</div>
+      <div class="team-name-block">
+        <div class="team-name">Audi F1 Team</div>
+        <div class="team-meta">
+          <span>🆕 New works entry — took over Sauber</span>
+          <span>📍 Hinwil, Switzerland</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#c0c0c0;border-color:#c0c0c0">Audi</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#c0c0c0">27</div>
+        <div class="driver-info">
+          <div class="driver-name">Nico Hülkenberg</div>
+          <div class="driver-detail">🇩🇪 German · Age 38 · 14th F1 season</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#c0c0c0">5</div>
+        <div class="driver-info">
+          <div class="driver-name">Gabriel Bortoleto</div>
+          <div class="driver-detail">🇧🇷 Brazilian · Age 21 · 2nd F1 season</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> German car giant Audi making their full F1 debut — a huge moment for the sport. Hulkenberg (also German) is the perfect experienced anchor driver for their new chapter.</div>
+  </div>
+
+  <!-- CADILLAC -->
+  <div class="team-card">
+    <div class="team-header" style="border-color:#fff">
+      <div class="team-color-dot" style="background:#fff;color:#000">C</div>
+      <div class="team-name-block">
+        <div class="team-name">Cadillac F1 Team</div>
+        <div class="team-meta">
+          <span>🆕 Brand new 11th team</span>
+          <span>📍 Indianapolis, USA / Banbury, England</span>
+        </div>
+      </div>
+      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+    </div>
+    <div class="team-body">
+      <div class="driver-row">
+        <div class="driver-num" style="color:#ccc">11</div>
+        <div class="driver-info">
+          <div class="driver-name">Sergio Pérez <span class="return-tag">RETURNED</span></div>
+          <div class="driver-detail">🇲🇽 Mexican · Age 36 · 15th F1 season · 1yr out</div>
+        </div>
+      </div>
+      <div class="driver-row">
+        <div class="driver-num" style="color:#ccc">77</div>
+        <div class="driver-info">
+          <div class="driver-name">Valtteri Bottas <span class="return-tag">RETURNED</span></div>
+          <div class="driver-detail">🇫🇮 Finnish · Age 36 · 15th F1 season · 1yr out</div>
+        </div>
+      </div>
+    </div>
+    <div class="team-note"><strong>What to watch:</strong> Both drivers are returning after a year away from F1 — two experienced heads to help build this brand new American team from scratch. Working on their own engine for 2029.</div>
+  </div>
+
+  <div class="checkered"></div>
+
+  <!-- ══ QUICK REFERENCE ══ -->
+  <div class="section-label">QUICK REFERENCE — ALL 22 DRIVERS</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Driver</th>
+          <th>Team</th>
+          <th>Nationality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num-cell" style="color:#FF8000">1</td><td>Lando Norris 🏆</td><td><span class="color-swatch" style="background:#FF8000"></span>McLaren</td><td>🇬🇧 British</td></tr>
+        <tr><td class="num-cell" style="color:#FF8000">81</td><td>Oscar Piastri</td><td><span class="color-swatch" style="background:#FF8000"></span>McLaren</td><td>🇦🇺 Australian</td></tr>
+        <tr><td class="num-cell" style="color:#29f4d2">63</td><td>George Russell</td><td><span class="color-swatch" style="background:#29f4d2"></span>Mercedes</td><td>🇬🇧 British</td></tr>
+        <tr><td class="num-cell" style="color:#29f4d2">12</td><td>Kimi Antonelli</td><td><span class="color-swatch" style="background:#29f4d2"></span>Mercedes</td><td>🇮🇹 Italian</td></tr>
+        <tr><td class="num-cell" style="color:#3671c6">3</td><td>Max Verstappen</td><td><span class="color-swatch" style="background:#3671c6"></span>Red Bull</td><td>🇳🇱 Dutch</td></tr>
+        <tr><td class="num-cell" style="color:#3671c6">6</td><td>Isack Hadjar</td><td><span class="color-swatch" style="background:#3671c6"></span>Red Bull</td><td>🇫🇷 French</td></tr>
+        <tr><td class="num-cell" style="color:#E8002D">16</td><td>Charles Leclerc</td><td><span class="color-swatch" style="background:#E8002D"></span>Ferrari</td><td>🇲🇨 Monégasque</td></tr>
+        <tr><td class="num-cell" style="color:#E8002D">44</td><td>Lewis Hamilton</td><td><span class="color-swatch" style="background:#E8002D"></span>Ferrari</td><td>🇬🇧 British</td></tr>
+        <tr><td class="num-cell" style="color:#006f62">14</td><td>Fernando Alonso</td><td><span class="color-swatch" style="background:#006f62"></span>Aston Martin</td><td>🇪🇸 Spanish</td></tr>
+        <tr><td class="num-cell" style="color:#006f62">18</td><td>Lance Stroll</td><td><span class="color-swatch" style="background:#006f62"></span>Aston Martin</td><td>🇨🇦 Canadian</td></tr>
+        <tr><td class="num-cell" style="color:#005AFF">23</td><td>Alexander Albon</td><td><span class="color-swatch" style="background:#005AFF"></span>Williams</td><td>🇹🇭 Thai-British</td></tr>
+        <tr><td class="num-cell" style="color:#005AFF">55</td><td>Carlos Sainz</td><td><span class="color-swatch" style="background:#005AFF"></span>Williams</td><td>🇪🇸 Spanish</td></tr>
+        <tr><td class="num-cell" style="color:#0090d0">10</td><td>Pierre Gasly</td><td><span class="color-swatch" style="background:#0090d0"></span>Alpine</td><td>🇫🇷 French</td></tr>
+        <tr><td class="num-cell" style="color:#0090d0">43</td><td>Franco Colapinto</td><td><span class="color-swatch" style="background:#0090d0"></span>Alpine</td><td>🇦🇷 Argentine</td></tr>
+        <tr><td class="num-cell" style="color:#6692ff">30</td><td>Liam Lawson</td><td><span class="color-swatch" style="background:#6692ff"></span>Racing Bulls</td><td>🇳🇿 New Zealander</td></tr>
+        <tr><td class="num-cell" style="color:#6692ff">41</td><td>Arvid Lindblad 🌱</td><td><span class="color-swatch" style="background:#6692ff"></span>Racing Bulls</td><td>🇬🇧 British</td></tr>
+        <tr><td class="num-cell" style="color:#b6babd">31</td><td>Esteban Ocon</td><td><span class="color-swatch" style="background:#b6babd"></span>Haas</td><td>🇫🇷 French</td></tr>
+        <tr><td class="num-cell" style="color:#b6babd">87</td><td>Oliver Bearman</td><td><span class="color-swatch" style="background:#b6babd"></span>Haas</td><td>🇬🇧 British</td></tr>
+        <tr><td class="num-cell" style="color:#c0c0c0">27</td><td>Nico Hülkenberg</td><td><span class="color-swatch" style="background:#c0c0c0"></span>Audi</td><td>🇩🇪 German</td></tr>
+        <tr><td class="num-cell" style="color:#c0c0c0">5</td><td>Gabriel Bortoleto</td><td><span class="color-swatch" style="background:#c0c0c0"></span>Audi</td><td>🇧🇷 Brazilian</td></tr>
+        <tr><td class="num-cell" style="color:#ccc">11</td><td>Sergio Pérez 🔄</td><td><span class="color-swatch" style="background:#fff"></span>Cadillac</td><td>🇲🇽 Mexican</td></tr>
+        <tr><td class="num-cell" style="color:#ccc">77</td><td>Valtteri Bottas 🔄</td><td><span class="color-swatch" style="background:#fff"></span>Cadillac</td><td>🇫🇮 Finnish</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:12px;color:var(--muted);margin-top:10px;padding:0 4px">
+    🏆 = Reigning World Champion &nbsp;·&nbsp; 🌱 = Rookie (F1 debut) &nbsp;·&nbsp; 🔄 = Returning after year out
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <p>Made with ❤️ as a beginner's guide to <strong>F1 2026</strong></p>
+    <p style="margin-top:6px">Sources: Formula1.com · RaceFans · ESPN · Wikipedia · Motor Sport Magazine</p>
+  </div>
+
+</div>
+</body>
+</html>

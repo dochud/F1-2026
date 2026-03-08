@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 2026 – Mum's Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E8002D;
+    --dark: #0a0a0a;
+    --card: #141414;
+    --gold: #F5C518;
+    --green: #00C48C;
+    --blue: #0099DA;
+    --text: #F0F0F0;
+    --muted: #888;
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0005 50%, #0a0a0a 100%);
+    border-bottom: 3px solid var(--red);
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'F1';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 320px;
+    color: rgba(232,0,45,0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 10vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero-sub {
+    margin-top: 14px;
+    font-size: 16px;
+    color: var(--muted);
+    position: relative;
+  }
+  .flag-strip {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 22px;
+  }
+  .flag-strip span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin: 40px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232,0,45,0.25);
+  }
+
+  /* ─── CARDS GRID ─── */
+  .grid { display: grid; gap: 14px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 580px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12); }
+  .card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+  }
+  .card .icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bbb;
+  }
+  .card .tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ─── BIG STAT CARDS ─── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  @media (max-width: 620px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .stat-card .lbl {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* ─── GLOSSARY ─── */
+  .glossary { display: flex; flex-direction: column; gap: 8px; }
+  .gloss-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .gloss-term {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    min-width: 130px;
+  }
+  .gloss-def {
+    font-size: 13.5px;
+    color: #bbb;
+    line-height: 1.5;
+  }
+
+  /* ─── TEAMS BANNER ─── */
+  .teams-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .team-pill {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px;
+  }
+  .footer strong { color: var(--red); }
+
+  /* ─── DIVIDER ─── */
+  .checkered {
+    height: 6px;
+    background-image: repeating-linear-gradient(90deg,
+      #fff 0, #fff 10px, transparent 10px, transparent 20px),
+      repeating-linear-gradient(0deg,
+      transparent 0, transparent 3px, #fff 3px, #fff 6px);
+    background-color: #333;
+    opacity: 0.15;
+    border-radius: 2px;
+    margin: 36px 0 0;
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight {
+    background: linear-gradient(135deg, rgba(232,0,45,0.12), rgba(245,197,24,0.06));
+    border: 1px solid rgba(232,0,45,0.3);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .highlight .hl-icon { font-size: 30px; flex-shrink: 0; }
+  .highlight h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .highlight p { font-size: 14px; color: #bbb; line-height: 1.6; }
+
+  /* ─── NAV ─── */
+  .topnav {
+    background: #111;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 48px;
+  }
+  .topnav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: #aaa;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .topnav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .topnav-links a {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .nav-active { background: rgba(232,0,45,0.15); color: var(--red) !important; }
+  .nav-inactive { color: #aaa; }
+  .nav-inactive:hover { background: rgba(255,255,255,0.06); color: #fff !important; }
+  .nav-external { color: #666 !important; border: 1px solid rgba(255,255,255,0.08); }
+  .nav-external:hover { background: rgba(255,255,255,0.05); color: #aaa !important; }
+  .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); margin: 0 6px; flex-shrink: 0; }
+
+  /* Mobile drawer */
+  @media (max-width: 600px) {
+    .nav-hamburger { display: flex; }
+    .topnav-links {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 10px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .topnav-links.open { display: flex; }
+    .topnav-links a {
+      padding: 11px 14px;
+      font-size: 13px;
+      border-radius: 7px;
+    }
+    .nav-divider { display: none; }
+    .nav-external { border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-logo" href="f1-2026-guide.html">F1 2026</a>
+    <button class="nav-hamburger" id="burger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topnav-links" id="navlinks">
+      <a href="f1-2026-guide.html" class="nav-active">🏁 Rules Guide</a>
+      <a href="f1-2026-teams.html" class="nav-inactive">🏎️ Teams &amp; Drivers</a>
+      <div class="nav-divider"></div>
+      <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">Drivers Standings ↗</a>
+      <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">Teams Standings ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-badge">🏁 SEASON GUIDE</div>
+  <h1>Formula 1<br><span>2026 Rules</span></h1>
+  <p class="hero-sub">Everything your mum needs to know — no engineering degree required</p>
+</div>
+
+<div class="container">
+
+  <!-- ══ QUICK NUMBERS ══ -->
+  <div class="section-label">BY THE NUMBERS</div>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">50/50</div>
+      <div class="lbl">Petrol / Electric power split</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">22</div>
+      <div class="lbl">Cars on the grid (up from 20!)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">−30kg</div>
+      <div class="lbl">Cars are lighter than before</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">100%</div>
+      <div class="lbl">Sustainable fuel used</div>
+    </div>
+  </div>
+
+  <!-- ══ THE BIG CHANGES ══ -->
+  <div class="section-label">THE BIG CHANGES</div>
+  <div class="grid grid-2">
+
+    <div class="card">
+      <div class="card-accent" style="background:var(--red)"></div>
+      <span class="icon">⚡</span>
+      <h3>Hybrid Power — Bigger & Bolder</h3>
+      <p>The engines still have a 1.6L V6 petrol core, but the electric motor is now three times as powerful. For the first time ever, electric and petrol contribute equally — a genuine 50/50 split. The cars are actually <em>more</em> powerful overall.</p>
+      <span class="tag" style="background:rgba(232,0,45,0.15);color:var(--red)">Power Unit</span>
+    </div>
+
+    <div class="card">
+      <div class="card-accent" style="background:var(--blue)"></div>
+      <span class="icon">🪽</span>
+      <h3>Wings That Move Themselves</h3>
+      <p>The front and rear wings automatically adjust as the car drives. On straights, they flatten out to reduce drag and go faster. In corners, they tilt back up to grip the road. Think of it like a plane adjusting its flaps automatically.</p>
+      <span class="tag" style="background:rgba(0,153,218,0.15);color:var(--blue)">Active Aero</span>
+    </div>
+
+    <div class="card">
+      <div class="card-accent" style="background:var(--green)"></div>
+      <span class="icon">🌱</span>
+      <h3>Greener Fuel</h3>
+      <p>All cars must use 100% Advanced Sustainable Fuel — made from things like captured carbon, municipal waste and plant matter. It doesn't hurt performance, but it's a big step towards F1's goal of being net-zero carbon by 2030.</p>
+      <span class="tag" style="background:rgba(0,196,140,0.15);color:var(--green)">Sustainability</span>
+    </div>
+
+    <div class="card">
+      <div class="card-accent" style="background:var(--gold)"></div>
+      <span class="icon">🚗</span>
+      <h3>Smaller, Lighter Cars</h3>
+      <p>The cars are shorter, narrower and 30kg lighter. This makes them more nimble and easier to handle, especially on tight street circuits like Monaco. Drivers say they feel noticeably more responsive than last year's cars.</p>
+      <span class="tag" style="background:rgba(245,197,24,0.15);color:var(--gold)">Chassis</span>
+    </div>
+
+  </div>
+
+  <div class="checkered"></div>
+
+  <!-- ══ RACE-DAY STUFF ══ -->
+  <div class="section-label">WHAT TO WATCH FOR ON RACE DAY</div>
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-accent" style="background:#ff6b35"></div>
+      <span class="icon">🚀</span>
+      <h3>Boost Button</h3>
+      <p style="font-size:13px;">Drivers can press a button to unleash extra electric power whenever they like — for attacking, defending, or just going faster. They can use it all at once or spread it across the lap.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-accent" style="background:#c084fc"></div>
+      <span class="icon">⚔️</span>
+      <h3>Overtake Mode</h3>
+      <p style="font-size:13px;">If a car gets within 1 second of the car ahead, it gains extra electric power for a whole lap. It's like a turbo boost for overtaking — replacing the old DRS system.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-accent" style="background:#38bdf8"></div>
+      <span class="icon">🔋</span>
+      <h3>Battery Management</h3>
+      <p style="font-size:13px;">Drivers must think carefully about when to charge their battery and when to spend the power. When they lift off the throttle, the car recharges. It's a whole new strategic puzzle every lap!</p>
+    </div>
+
+  </div>
+
+  <div class="checkered"></div>
+
+  <!-- ══ NEW TEAMS ══ -->
+  <div class="section-label">NEW FACES ON THE GRID</div>
+  <div class="highlight">
+    <div class="hl-icon">🏎️</div>
+    <div>
+      <h3>Two Brand New Teams & Engine Makers</h3>
+      <p><strong style="color:#fff">Cadillac</strong> (yes, the American car brand!) join as the 11th team, bringing the grid to 22 cars. <strong style="color:#fff">Audi</strong> have also joined as an engine manufacturer for the first time. <strong style="color:#fff">Ford</strong> are back too, supplying Red Bull's engines. Meanwhile <strong style="color:#fff">Honda</strong> have moved from Red Bull to exclusively power Aston Martin.</p>
+      <div class="teams-row" style="margin-top:12px">
+        <span class="team-pill" style="color:#E8002D;border-color:#E8002D">Ferrari</span>
+        <span class="team-pill" style="color:#29f4d2;border-color:#29f4d2">Mercedes</span>
+        <span class="team-pill" style="color:#3671c6;border-color:#3671c6">Red Bull + Ford</span>
+        <span class="team-pill" style="color:#ff8000;border-color:#ff8000">McLaren</span>
+        <span class="team-pill" style="color:#006f62;border-color:#006f62">Aston + Honda</span>
+        <span class="team-pill" style="color:#ff80c7;border-color:#ff80c7">Cadillac (NEW!)</span>
+        <span class="team-pill" style="color:#c0c0c0;border-color:#c0c0c0">Audi (NEW!)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkered"></div>
+
+  <!-- ══ JARGON BUSTER ══ -->
+  <div class="section-label">JARGON BUSTER — WORDS YOU'LL HEAR</div>
+  <div class="glossary">
+    <div class="gloss-row">
+      <div class="gloss-term">Active Aero</div>
+      <div class="gloss-def">Wings that automatically move to help the car go faster on straights and grip better in corners. No driver input needed!</div>
+    </div>
+    <div class="gloss-row">
+      <div class="gloss-term">DRS (old system)</div>
+      <div class="gloss-def">The old "overtaking flap" on the rear wing. It's gone — replaced by the new Active Aero and Overtake Mode systems.</div>
+    </div>
+    <div class="gloss-row">
+      <div class="gloss-term">ERS / Battery</div>
+      <div class="gloss-def">Energy Recovery System — captures energy when braking or lifting off the throttle and stores it to use as electric boost power.</div>
+    </div>
+    <div class="gloss-row">
+      <div class="gloss-term">ICE</div>
+      <div class="gloss-def">Internal Combustion Engine — the petrol part. In 2026 it shares power equally with the electric motor for the first time.</div>
+    </div>
+    <div class="gloss-row">
+      <div class="gloss-term">Recharge Mode</div>
+      <div class="gloss-def">When a driver lifts off the accelerator on straights to top up the battery. You might see it as a brief dip in speed.</div>
+    </div>
+    <div class="gloss-row">
+      <div class="gloss-term">Downforce</div>
+      <div class="gloss-def">The invisible force that pushes the car into the road at speed — like a wing in reverse — so it can take corners faster without sliding.</div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <p>Made with ❤️ as a beginner's guide to <strong>F1 2026</strong></p>
+    <p style="margin-top:6px">Sources: Formula1.com · ESPN · GPFans · Wikipedia</p>
+  </div>
+
+</div>
+</body>
+</html>
