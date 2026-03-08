@@ -298,23 +298,25 @@
     flex-direction: column;
     justify-content: center;
     gap: 5px;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
     cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
+    padding: 8px;
+    border-radius: 7px;
+    flex-shrink: 0;
   }
   .nav-hamburger span {
     display: block;
     height: 2px;
-    background: #aaa;
+    background: #ccc;
     border-radius: 2px;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
+    transform-origin: center;
   }
   .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .topnav-links {
     display: flex;
@@ -324,41 +326,57 @@
   .topnav-links a {
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 5px;
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
   }
-  .nav-active { background: rgba(232,0,45,0.15); color: var(--red) !important; }
-  .nav-inactive { color: #aaa; }
-  .nav-inactive:hover { background: rgba(255,255,255,0.06); color: #fff !important; }
-  .nav-external { color: #666 !important; border: 1px solid rgba(255,255,255,0.08); }
-  .nav-external:hover { background: rgba(255,255,255,0.05); color: #aaa !important; }
-  .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); margin: 0 6px; flex-shrink: 0; }
+  .nav-active { background: rgba(232,0,45,0.18); color: var(--red) !important; }
+  .nav-inactive { color: #bbb; }
+  .nav-inactive:hover { background: rgba(255,255,255,0.07); color: #fff !important; }
+  .nav-external { color: #777 !important; border: 1px solid rgba(255,255,255,0.1); }
+  .nav-external:hover { background: rgba(255,255,255,0.06); color: #ccc !important; }
+  .nav-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.12); margin: 0 6px; flex-shrink: 0; }
 
-  /* Mobile drawer */
-  @media (max-width: 600px) {
+  @media (max-width: 620px) {
     .nav-hamburger { display: flex; }
-    .topnav-links {
-      display: none;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 4px;
-      padding: 10px 14px 14px;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
-    .topnav-links.open { display: flex; }
-    .topnav-links a {
-      padding: 11px 14px;
-      font-size: 13px;
-      border-radius: 7px;
-    }
+    .topnav-links { display: none; }
     .nav-divider { display: none; }
-    .nav-external { border: 1px solid rgba(255,255,255,0.1); text-align: center; }
   }
+
+  /* Drawer — sits below the bar, always in normal flow */
+  .nav-drawer {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 16px 16px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    background: #111;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a {
+    display: block;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: #ddd;
+    transition: background 0.15s;
+  }
+  .nav-drawer a.nav-active {
+    background: rgba(232,0,45,0.15);
+    border-color: rgba(232,0,45,0.3);
+    color: var(--red) !important;
+  }
+  .nav-drawer a.nav-external { color: #aaa; }
 </style>
 </head>
 <body>
@@ -366,19 +384,33 @@
 <!-- ══ NAV ══ -->
 <nav class="topnav">
   <div class="topnav-inner">
-    <a class="topnav-logo" href="f1-2026-guide.html">F1 2026</a>
-    <button class="nav-hamburger" id="burger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="topnav-links" id="navlinks">
-      <a href="f1-2026-guide.html" class="nav-active">🏁 Rules Guide</a>
+    <a class="topnav-logo" href="index.html">F1 2026</a>
+    <div class="topnav-links" id="navLinks">
+      <a href="index.html" class="nav-active">🏁 Rules Guide</a>
       <a href="f1-2026-teams.html" class="nav-inactive">🏎️ Teams &amp; Drivers</a>
       <div class="nav-divider"></div>
-      <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">Drivers Standings ↗</a>
-      <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">Teams Standings ↗</a>
+      <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
+      <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
     </div>
+    <button class="nav-hamburger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" class="nav-active">🏁 Rules Guide</a>
+    <a href="f1-2026-teams.html" class="nav-inactive">🏎️ Teams &amp; Drivers</a>
+    <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
+    <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
   </div>
 </nav>
+<script>
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+</script>
 
 <!-- ══ HERO ══ -->
 <div class="hero">
