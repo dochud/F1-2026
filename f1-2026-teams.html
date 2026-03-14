@@ -122,20 +122,52 @@
     border-left: 5px solid;
     position: relative;
   }
-  .team-color-dot {
-    width: 44px;
-    height: 44px;
+  /* ─── TEAM CARD ─── */
+  .team-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .team-card:hover { border-color: rgba(255,255,255,0.13); }
+  .team-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px 14px;
+    border-left: 5px solid;
+  }
+
+  /* ─── TEAM LOGO ─── */
+  .team-logo {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 900;
     color: #fff;
     border: 2px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    /* background set inline per team via border-color tint */
   }
-  .team-name-block { flex: 1; }
+  .team-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  .team-logo .logo-fallback {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+  }
+
+  /* ─── TEAM HEADER ─── */
+  .team-name-block { flex: 1; min-width: 0; }
   .team-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 22px;
@@ -154,101 +186,217 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
-    padding: 3px 9px;
+    padding: 4px 10px 4px 8px;
     border-radius: 20px;
     border: 1.5px solid;
     text-transform: uppercase;
     white-space: nowrap;
     align-self: center;
+    text-decoration: none;
+    transition: opacity 0.15s, background 0.15s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
+  .engine-badge:hover { opacity: 0.75; }
 
+  /* ─── DRIVER ROWS ─── */
   .team-body {
-    padding: 0 22px 18px;
+    padding: 0 16px 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
-  @media (max-width: 480px) { .team-body { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) { .team-body { grid-template-columns: 1fr; } }
+
+  /* ─── CAR IMAGE — spans full width above drivers ─── */
+  .team-car {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0 4px;
+    overflow: hidden;
+  }
+  .team-car img {
+    height: 72px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
+    display: block;
+  }
 
   .driver-row {
     background: var(--card2);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 13px 16px;
+    padding: 11px 12px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
   }
   .driver-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
+    font-size: 26px;
     line-height: 1;
-    min-width: 36px;
+    min-width: 32px;
     text-align: center;
+    flex-shrink: 0;
   }
-  .driver-info {}
+  .driver-info { flex: 1; min-width: 0; }
   .driver-name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1.2;
   }
   .driver-detail {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted);
     margin-top: 2px;
   }
+  /* Driver photo placeholder */
+  .driver-photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #222;
+    border: 2px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .driver-photo img {
+    width: 40px;
+    height: 44px;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .driver-photo .photo-fallback {
+    font-size: 28px;
+    line-height: 1;
+    opacity: 0.4;
+    margin-bottom: -2px;
+  }
+
   .rookie-tag {
     display: inline-block;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 1px;
-    padding: 1px 6px;
+    padding: 1px 5px;
     border-radius: 3px;
     background: rgba(0,196,140,0.15);
     color: #00C48C;
     border: 1px solid rgba(0,196,140,0.3);
     vertical-align: middle;
-    margin-left: 4px;
+    margin-left: 3px;
   }
   .champ-tag {
     display: inline-block;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 1px;
-    padding: 1px 6px;
+    padding: 1px 5px;
     border-radius: 3px;
     background: rgba(245,197,24,0.15);
     color: #F5C518;
     border: 1px solid rgba(245,197,24,0.35);
     vertical-align: middle;
-    margin-left: 4px;
+    margin-left: 3px;
   }
   .return-tag {
     display: inline-block;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 1px;
-    padding: 1px 6px;
+    padding: 1px 5px;
     border-radius: 3px;
     background: rgba(0,153,218,0.15);
     color: #0099DA;
     border: 1px solid rgba(0,153,218,0.35);
     vertical-align: middle;
-    margin-left: 4px;
+    margin-left: 3px;
   }
 
   .team-note {
-    padding: 0 22px 16px;
+    padding: 12px 16px 16px;
     font-size: 13px;
     color: #999;
     line-height: 1.5;
     border-top: 1px solid var(--border);
-    padding-top: 14px;
-    margin-top: -4px;
   }
   .team-note strong { color: #ddd; }
 
-  /* ─── ENGINE KEY ─── */
+  /* ─── ENGINE MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: #aaa;
+    font-size: 18px;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .modal-teams { display: flex; flex-direction: column; gap: 8px; }
+  .modal-team-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .modal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .modal-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.5;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* ─── ENGINE KEY (moved to bottom) ─── */
   .engine-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -276,43 +424,6 @@
     height: 10px;
     border-radius: 50%;
     margin-right: 5px;
-    vertical-align: middle;
-  }
-
-  /* ─── QUICK REF TABLE ─── */
-  .ref-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  .ref-table th {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    color: #E8002D;
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 1px solid rgba(232,0,45,0.2);
-  }
-  .ref-table td {
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    color: #ccc;
-    vertical-align: middle;
-  }
-  .ref-table tr:last-child td { border-bottom: none; }
-  .ref-table tr:hover td { background: rgba(255,255,255,0.02); }
-  .num-cell {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    width: 48px;
-  }
-  .color-swatch {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-    margin-right: 7px;
     vertical-align: middle;
   }
 
@@ -458,6 +569,7 @@
     <div class="topnav-links" id="navLinks">
       <a href="index.html" class="nav-inactive">🏁 Rules Guide</a>
       <a href="f1-2026-teams.html" class="nav-active">🏎️ Teams &amp; Drivers</a>
+      <a href="f1-2026-drivers.html" class="nav-inactive">👤 Driver Guide</a>
       <div class="nav-divider"></div>
       <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
       <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
@@ -469,6 +581,7 @@
   <div class="nav-drawer" id="navDrawer">
     <a href="index.html" class="nav-inactive">🏁 Rules Guide</a>
     <a href="f1-2026-teams.html" class="nav-active">🏎️ Teams &amp; Drivers</a>
+    <a href="f1-2026-drivers.html" class="nav-inactive">👤 Driver Guide</a>
     <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
     <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
   </div>
@@ -491,112 +604,89 @@
 
 <div class="container">
 
-  <!-- ══ ENGINE KEY ══ -->
-  <div class="section-label">ENGINE SUPPLIERS IN 2026</div>
-  <div class="engine-grid">
-    <div class="engine-card">
-      <div class="eng-name" style="color:#29f4d2">Mercedes</div>
-      <div class="eng-users">
-        <div><span class="eng-dot" style="background:#29f4d2"></span>Mercedes</div>
-        <div><span class="eng-dot" style="background:#0090d0"></span>Alpine</div>
-        <div><span class="eng-dot" style="background:#37BEDD"></span>McLaren</div>
-        <div><span class="eng-dot" style="background:#005AFF"></span>Williams</div>
-      </div>
-    </div>
-    <div class="engine-card">
-      <div class="eng-name" style="color:#E8002D">Ferrari</div>
-      <div class="eng-users">
-        <div><span class="eng-dot" style="background:#E8002D"></span>Ferrari</div>
-        <div><span class="eng-dot" style="background:#b6babd"></span>Haas</div>
-        <div><span class="eng-dot" style="background:#fff"></span>Cadillac</div>
-      </div>
-    </div>
-    <div class="engine-card">
-      <div class="eng-name" style="color:#3671c6">Red Bull / Ford</div>
-      <div class="eng-users">
-        <div><span class="eng-dot" style="background:#3671c6"></span>Red Bull Racing</div>
-        <div><span class="eng-dot" style="background:#6692ff"></span>Racing Bulls</div>
-      </div>
-    </div>
-    <div class="engine-card">
-      <div class="eng-name" style="color:#00665e">Honda</div>
-      <div class="eng-users">
-        <div><span class="eng-dot" style="background:#006f62"></span>Aston Martin</div>
-        <div style="color:#555;font-size:11px;margin-top:4px">Honda's standalone return – previously powered Red Bull</div>
-      </div>
-    </div>
-    <div class="engine-card">
-      <div class="eng-name" style="color:#b3b3b3">Audi</div>
-      <div class="eng-users">
-        <div><span class="eng-dot" style="background:#c0c0c0"></span>Audi (works team)</div>
-        <div style="color:#555;font-size:11px;margin-top:4px">Brand new to F1 — took over the Sauber team</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="checkered"></div>
-
   <!-- ══ TEAMS ══ -->
   <div class="section-label">ALL 11 TEAMS</div>
 
   <!-- McLAREN -->
   <div class="team-card">
     <div class="team-header" style="border-color:#FF8000">
-      <div class="team-color-dot" style="background:#FF8000">M</div>
+      <div class="team-logo" style="border-color:#FF8000;background:#FF8000">
+        <img src="images/logos/mclaren.png" alt="McLaren" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#FF8000">M</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">McLaren</div>
-        <div class="team-meta">
-          <span>🏆 Reigning Constructors' Champions</span>
-          <span>📍 Woking, England</span>
-        </div>
+        <div class="team-meta"><span>🏆 Reigning Constructors' Champions</span><span>📍 Woking, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+      <a class="engine-badge" style="color:#29f4d2;border-color:#29f4d2" href="#" onclick="openEngine('mercedes');return false;">⚙️ Mercedes</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/mclaren.png" alt="McLaren 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#FF8000">1</div>
         <div class="driver-info">
           <div class="driver-name">Lando Norris <span class="champ-tag">🏆 CHAMP</span></div>
-          <div class="driver-detail">🇬🇧 British · Age 25 · 7th F1 season</div>
+          <div class="driver-detail">🇬🇧 British · Age 25 · 7th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/norris.png" alt="Lando Norris" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#FF8000">81</div>
         <div class="driver-info">
           <div class="driver-name">Oscar Piastri</div>
-          <div class="driver-detail">🇦🇺 Australian · Age 24 · 4th F1 season</div>
+          <div class="driver-detail">🇦🇺 Australian · Age 24 · 4th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/piastri.png" alt="Oscar Piastri" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Defending constructors' title for a third straight year. Norris carries #1 as reigning world champion — the first time he's used it.</div>
+    <div class="team-note"><strong>What to watch:</strong> Defending constructors' title for a third straight year. Norris carries #1 as reigning world champion.</div>
   </div>
 
   <!-- MERCEDES -->
   <div class="team-card">
     <div class="team-header" style="border-color:#29f4d2">
-      <div class="team-color-dot" style="background:#29f4d2;color:#000">W</div>
+      <div class="team-logo" style="border-color:#29f4d2;background:#29f4d2">
+        <img src="images/logos/mercedes.png" alt="Mercedes" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#29f4d2">W</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Mercedes-AMG</div>
-        <div class="team-meta">
-          <span>⚡ Works team</span>
-          <span>📍 Brackley, England</span>
-        </div>
+        <div class="team-meta"><span>⚡ Works team</span><span>📍 Brackley, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+      <a class="engine-badge" style="color:#29f4d2;border-color:#29f4d2" href="#" onclick="openEngine('mercedes');return false;">⚙️ Mercedes</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/mercedes.png" alt="Mercedes 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#29f4d2">63</div>
         <div class="driver-info">
           <div class="driver-name">George Russell</div>
-          <div class="driver-detail">🇬🇧 British · Age 27 · 8th F1 season</div>
+          <div class="driver-detail">🇬🇧 British · Age 27 · 8th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/russell.png" alt="George Russell" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#29f4d2">12</div>
         <div class="driver-info">
           <div class="driver-name">Kimi Antonelli</div>
-          <div class="driver-detail">🇮🇹 Italian · Age 19 · 2nd F1 season</div>
+          <div class="driver-detail">🇮🇹 Italian · Age 19 · 2nd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/antonelli.png" alt="Kimi Antonelli" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
@@ -606,220 +696,298 @@
   <!-- RED BULL -->
   <div class="team-card">
     <div class="team-header" style="border-color:#3671c6">
-      <div class="team-color-dot" style="background:#3671c6">RB</div>
+      <div class="team-logo" style="border-color:#3671c6;background:#3671c6">
+        <img src="images/logos/red-bull.png" alt="Red Bull" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#3671c6">RB</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Red Bull Racing</div>
-        <div class="team-meta">
-          <span>⚡ Works team + Ford partner</span>
-          <span>📍 Milton Keynes, England</span>
-        </div>
+        <div class="team-meta"><span>⚡ Works team + Ford</span><span>📍 Milton Keynes, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#3671c6;border-color:#3671c6">RB / Ford</div>
+      <a class="engine-badge" style="color:#3671c6;border-color:#3671c6" href="#" onclick="openEngine('redbull');return false;">⚙️ RB / Ford</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/red-bull.png" alt="Red Bull 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#3671c6">3</div>
         <div class="driver-info">
           <div class="driver-name">Max Verstappen</div>
-          <div class="driver-detail">🇳🇱 Dutch · Age 28 · 12th F1 season · 4× World Champ</div>
+          <div class="driver-detail">🇳🇱 Dutch · Age 28 · 4× World Champ</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/verstappen.png" alt="Max Verstappen" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#3671c6">6</div>
         <div class="driver-info">
           <div class="driver-name">Isack Hadjar</div>
-          <div class="driver-detail">🇫🇷 French · Age 21 · 2nd F1 season · Promoted from RB</div>
+          <div class="driver-detail">🇫🇷 French · Age 21 · 2nd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/hadjar.png" alt="Isack Hadjar" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Verstappen switches to #3 (his long-coveted number, freed up by Ricciardo's retirement). Ford return to F1 for the first time since 2004.</div>
+    <div class="team-note"><strong>What to watch:</strong> Verstappen switches to #3 — his long-coveted number. Ford returns to F1 for the first time since 2004.</div>
   </div>
 
   <!-- FERRARI -->
   <div class="team-card">
     <div class="team-header" style="border-color:#E8002D">
-      <div class="team-color-dot" style="background:#E8002D">SF</div>
+      <div class="team-logo" style="border-color:#E8002D;background:#E8002D">
+        <img src="images/logos/ferrari.png" alt="Ferrari" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#E8002D">SF</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Scuderia Ferrari</div>
-        <div class="team-meta">
-          <span>⚡ Works team</span>
-          <span>📍 Maranello, Italy</span>
-        </div>
+        <div class="team-meta"><span>⚡ Works team</span><span>📍 Maranello, Italy</span></div>
       </div>
-      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+      <a class="engine-badge" style="color:#E8002D;border-color:#E8002D" href="#" onclick="openEngine('ferrari');return false;">⚙️ Ferrari</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/ferrari.png" alt="Ferrari 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#E8002D">16</div>
         <div class="driver-info">
           <div class="driver-name">Charles Leclerc</div>
-          <div class="driver-detail">🇲🇨 Monégasque · Age 28 · 9th F1 season</div>
+          <div class="driver-detail">🇲🇨 Monégasque · Age 28 · 9th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/leclerc.png" alt="Charles Leclerc" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#E8002D">44</div>
         <div class="driver-info">
           <div class="driver-name">Lewis Hamilton</div>
-          <div class="driver-detail">🇬🇧 British · Age 41 · 20th F1 season · 7× World Champ</div>
+          <div class="driver-detail">🇬🇧 British · Age 41 · 7× World Champ</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/hamilton.png" alt="Lewis Hamilton" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Arguably the most star-studded driver pairing in F1 history — two of the sport's greatest talents sharing a garage. Ferrari were winless in 2025 and will be hungry to bounce back.</div>
+    <div class="team-note"><strong>What to watch:</strong> Arguably the most star-studded driver pairing in F1 history. Ferrari were winless in 2025 and will be hungry to bounce back.</div>
   </div>
 
   <!-- ASTON MARTIN -->
   <div class="team-card">
     <div class="team-header" style="border-color:#006f62">
-      <div class="team-color-dot" style="background:#006f62">AM</div>
+      <div class="team-logo" style="border-color:#006f62;background:#006f62">
+        <img src="images/logos/aston-martin.png" alt="Aston Martin" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#006f62">AM</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Aston Martin Aramco</div>
-        <div class="team-meta">
-          <span>🔧 Honda works engine (new for 2026)</span>
-          <span>📍 Silverstone, England</span>
-        </div>
+        <div class="team-meta"><span>🔧 Honda works engine</span><span>📍 Silverstone, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#e00024;border-color:#e00024">Honda</div>
+      <a class="engine-badge" style="color:#e00024;border-color:#e00024" href="#" onclick="openEngine('honda');return false;">⚙️ Honda</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/aston-martin.png" alt="Aston Martin 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#006f62">14</div>
         <div class="driver-info">
           <div class="driver-name">Fernando Alonso</div>
-          <div class="driver-detail">🇪🇸 Spanish · Age 44 · 24th F1 season · 2× World Champ</div>
+          <div class="driver-detail">🇪🇸 Spanish · Age 44 · 2× World Champ</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/alonso.png" alt="Fernando Alonso" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#006f62">18</div>
         <div class="driver-info">
           <div class="driver-name">Lance Stroll</div>
-          <div class="driver-detail">🇨🇦 Canadian · Age 27 · 10th F1 season</div>
+          <div class="driver-detail">🇨🇦 Canadian · Age 27 · 10th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/stroll.png" alt="Lance Stroll" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Adrian Newey (the legendary car designer who built Red Bull's championship cars) joined Aston Martin. This is his first full season at the wheel. Big expectations!</div>
+    <div class="team-note"><strong>What to watch:</strong> Legendary car designer Adrian Newey joined Aston Martin — his first full season here. Big expectations.</div>
   </div>
 
   <!-- WILLIAMS -->
   <div class="team-card">
     <div class="team-header" style="border-color:#005AFF">
-      <div class="team-color-dot" style="background:#005AFF">W</div>
+      <div class="team-logo" style="border-color:#005AFF;background:#005AFF">
+        <img src="images/logos/williams.png" alt="Williams" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#005AFF">W</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Williams Racing</div>
-        <div class="team-meta">
-          <span>📍 Grove, England</span>
-        </div>
+        <div class="team-meta"><span>📍 Grove, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+      <a class="engine-badge" style="color:#29f4d2;border-color:#29f4d2" href="#" onclick="openEngine('mercedes');return false;">⚙️ Mercedes</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/williams.png" alt="Williams 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#005AFF">23</div>
         <div class="driver-info">
           <div class="driver-name">Alexander Albon</div>
-          <div class="driver-detail">🇹🇭 Thai-British · Age 29 · 7th F1 season</div>
+          <div class="driver-detail">🇹🇭 Thai-British · Age 29 · 7th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/albon.png" alt="Alexander Albon" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#005AFF">55</div>
         <div class="driver-info">
           <div class="driver-name">Carlos Sainz</div>
-          <div class="driver-detail">🇪🇸 Spanish · Age 31 · 12th F1 season</div>
+          <div class="driver-detail">🇪🇸 Spanish · Age 31 · 12th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/sainz.png" alt="Carlos Sainz" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Sainz scored two podiums in his first year with Williams in 2025, lifting the historic team back into regular points-scoring form.</div>
+    <div class="team-note"><strong>What to watch:</strong> Sainz scored two podiums in his first year with Williams in 2025, lifting the team back into regular points-scoring form.</div>
   </div>
 
   <!-- ALPINE -->
   <div class="team-card">
     <div class="team-header" style="border-color:#0090d0">
-      <div class="team-color-dot" style="background:#0090d0">A</div>
+      <div class="team-logo" style="border-color:#0090d0;background:#0090d0">
+        <img src="images/logos/alpine.png" alt="Alpine" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#0090d0">A</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Alpine F1 Team</div>
-        <div class="team-meta">
-          <span>🔧 Switched from Renault to Mercedes engines</span>
-          <span>📍 Enstone, England</span>
-        </div>
+        <div class="team-meta"><span>🔧 Switched to Mercedes engines</span><span>📍 Enstone, England</span></div>
       </div>
-      <div class="engine-badge" style="color:#29f4d2;border-color:#29f4d2">Mercedes</div>
+      <a class="engine-badge" style="color:#29f4d2;border-color:#29f4d2" href="#" onclick="openEngine('mercedes');return false;">⚙️ Mercedes</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/alpine.png" alt="Alpine 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#0090d0">10</div>
         <div class="driver-info">
           <div class="driver-name">Pierre Gasly</div>
-          <div class="driver-detail">🇫🇷 French · Age 29 · 9th F1 season</div>
+          <div class="driver-detail">🇫🇷 French · Age 29 · 9th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/gasly.png" alt="Pierre Gasly" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#0090d0">43</div>
         <div class="driver-info">
           <div class="driver-name">Franco Colapinto</div>
-          <div class="driver-detail">🇦🇷 Argentine · Age 22 · 2nd F1 season</div>
+          <div class="driver-detail">🇦🇷 Argentine · Age 22 · 2nd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/colapinto.png" alt="Franco Colapinto" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Alpine dropped their Renault engine after years of poor results — the first season without a Renault-badged engine since 2000.</div>
+    <div class="team-note"><strong>What to watch:</strong> First season without a Renault-badged engine since 2000 — hoping Mercedes power unlocks some midfield performance.</div>
   </div>
 
   <!-- RACING BULLS -->
   <div class="team-card">
     <div class="team-header" style="border-color:#6692ff">
-      <div class="team-color-dot" style="background:#6692ff">RB</div>
+      <div class="team-logo" style="border-color:#6692ff;background:#6692ff">
+        <img src="images/logos/racing-bulls.png" alt="Racing Bulls" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#6692ff">RB</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Visa Cash App RB</div>
-        <div class="team-meta">
-          <span>🔧 Red Bull's sister team · Develops future RB stars</span>
-          <span>📍 Faenza, Italy</span>
-        </div>
+        <div class="team-meta"><span>🔧 Red Bull's sister team</span><span>📍 Faenza, Italy</span></div>
       </div>
-      <div class="engine-badge" style="color:#3671c6;border-color:#3671c6">RB / Ford</div>
+      <a class="engine-badge" style="color:#3671c6;border-color:#3671c6" href="#" onclick="openEngine('redbull');return false;">⚙️ RB / Ford</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/racing-bulls.png" alt="Racing Bulls 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#6692ff">30</div>
         <div class="driver-info">
           <div class="driver-name">Liam Lawson</div>
-          <div class="driver-detail">🇳🇿 New Zealander · Age 23 · 3rd F1 season</div>
+          <div class="driver-detail">🇳🇿 New Zealander · Age 23 · 3rd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/lawson.png" alt="Liam Lawson" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#6692ff">41</div>
         <div class="driver-info">
           <div class="driver-name">Arvid Lindblad <span class="rookie-tag">ROOKIE</span></div>
-          <div class="driver-detail">🇬🇧 British (Swedish heritage) · Age 18 · F1 debut</div>
+          <div class="driver-detail">🇬🇧 British · Age 18 · F1 debut</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/lindblad.png" alt="Arvid Lindblad" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Lindblad is the only true rookie on the 2026 grid, aged just 18. Red Bull's hottest prospect — comparisons to a young Lando Norris are already flying around.</div>
+    <div class="team-note"><strong>What to watch:</strong> Lindblad is the only true rookie on the 2026 grid — Red Bull's hottest prospect at just 18 years old.</div>
   </div>
 
   <!-- HAAS -->
   <div class="team-card">
     <div class="team-header" style="border-color:#b6babd">
-      <div class="team-color-dot" style="background:#b6babd;color:#000">H</div>
+      <div class="team-logo" style="border-color:#b6babd;background:#b6babd">
+        <img src="images/logos/haas.png" alt="Haas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#b6babd">H</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">MoneyGram Haas</div>
-        <div class="team-meta">
-          <span>🇺🇸 The original American F1 team</span>
-          <span>📍 Kannapolis, USA / Banbury, England</span>
-        </div>
+        <div class="team-meta"><span>🇺🇸 The original American F1 team</span><span>📍 Kannapolis, USA</span></div>
       </div>
-      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+      <a class="engine-badge" style="color:#E8002D;border-color:#E8002D" href="#" onclick="openEngine('ferrari');return false;">⚙️ Ferrari</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/haas.png" alt="Haas 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#b6babd">31</div>
         <div class="driver-info">
           <div class="driver-name">Esteban Ocon</div>
-          <div class="driver-detail">🇫🇷 French · Age 29 · 9th F1 season</div>
+          <div class="driver-detail">🇫🇷 French · Age 29 · 9th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/ocon.png" alt="Esteban Ocon" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#b6babd">87</div>
         <div class="driver-info">
           <div class="driver-name">Oliver Bearman</div>
-          <div class="driver-detail">🇬🇧 British · Age 19 · 2nd F1 season</div>
+          <div class="driver-detail">🇬🇧 British · Age 19 · 2nd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/bearman.png" alt="Oliver Bearman" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
@@ -829,109 +997,133 @@
   <!-- AUDI -->
   <div class="team-card">
     <div class="team-header" style="border-color:#c0c0c0">
-      <div class="team-color-dot" style="background:#c0c0c0;color:#000">A</div>
+      <div class="team-logo" style="border-color:#c0c0c0;background:#333">
+        <img src="images/logos/audi.png" alt="Audi" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#c0c0c0">A</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Audi F1 Team</div>
-        <div class="team-meta">
-          <span>🆕 New works entry — took over Sauber</span>
-          <span>📍 Hinwil, Switzerland</span>
-        </div>
+        <div class="team-meta"><span>🆕 New works entry — took over Sauber</span><span>📍 Hinwil, Switzerland</span></div>
       </div>
-      <div class="engine-badge" style="color:#c0c0c0;border-color:#c0c0c0">Audi</div>
+      <a class="engine-badge" style="color:#c0c0c0;border-color:#c0c0c0" href="#" onclick="openEngine('audi');return false;">⚙️ Audi</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/audi.png" alt="Audi 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#c0c0c0">27</div>
         <div class="driver-info">
           <div class="driver-name">Nico Hülkenberg</div>
-          <div class="driver-detail">🇩🇪 German · Age 38 · 14th F1 season</div>
+          <div class="driver-detail">🇩🇪 German · Age 38 · 14th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/hulkenberg.png" alt="Nico Hulkenberg" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#c0c0c0">5</div>
         <div class="driver-info">
           <div class="driver-name">Gabriel Bortoleto</div>
-          <div class="driver-detail">🇧🇷 Brazilian · Age 21 · 2nd F1 season</div>
+          <div class="driver-detail">🇧🇷 Brazilian · Age 21 · 2nd season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/bortoleto.png" alt="Gabriel Bortoleto" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> German car giant Audi making their full F1 debut — a huge moment for the sport. Hulkenberg (also German) is the perfect experienced anchor driver for their new chapter.</div>
+    <div class="team-note"><strong>What to watch:</strong> German car giant making their full F1 debut. Hulkenberg is the perfect experienced anchor for their new chapter.</div>
   </div>
 
   <!-- CADILLAC -->
   <div class="team-card">
-    <div class="team-header" style="border-color:#fff">
-      <div class="team-color-dot" style="background:#fff;color:#000">C</div>
+    <div class="team-header" style="border-color:#ddd">
+      <div class="team-logo" style="border-color:#ddd;background:#222">
+        <img src="images/logos/cadillac.png" alt="Cadillac" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none;color:#ddd">C</span>
+      </div>
       <div class="team-name-block">
         <div class="team-name">Cadillac F1 Team</div>
-        <div class="team-meta">
-          <span>🆕 Brand new 11th team</span>
-          <span>📍 Indianapolis, USA / Banbury, England</span>
-        </div>
+        <div class="team-meta"><span>🆕 Brand new 11th team</span><span>📍 Indianapolis, USA</span></div>
       </div>
-      <div class="engine-badge" style="color:#E8002D;border-color:#E8002D">Ferrari</div>
+      <a class="engine-badge" style="color:#E8002D;border-color:#E8002D" href="#" onclick="openEngine('ferrari');return false;">⚙️ Ferrari</a>
     </div>
     <div class="team-body">
+    <div class="team-car">
+      <img src="images/cars/cadillac.png" alt="Cadillac 2026 car" onerror="this.parentElement.style.display=\'none\'">
+    </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#ccc">11</div>
         <div class="driver-info">
           <div class="driver-name">Sergio Pérez <span class="return-tag">RETURNED</span></div>
-          <div class="driver-detail">🇲🇽 Mexican · Age 36 · 15th F1 season · 1yr out</div>
+          <div class="driver-detail">🇲🇽 Mexican · Age 36 · 15th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/perez.png" alt="Sergio Perez" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
       <div class="driver-row">
         <div class="driver-num" style="color:#ccc">77</div>
         <div class="driver-info">
           <div class="driver-name">Valtteri Bottas <span class="return-tag">RETURNED</span></div>
-          <div class="driver-detail">🇫🇮 Finnish · Age 36 · 15th F1 season · 1yr out</div>
+          <div class="driver-detail">🇫🇮 Finnish · Age 36 · 15th season</div>
+        </div>
+        <div class="driver-photo">
+          <img src="images/drivers/bottas.png" alt="Valtteri Bottas" onerror="this.style.display='none';this.parentElement.querySelector('.photo-fallback').style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
         </div>
       </div>
     </div>
-    <div class="team-note"><strong>What to watch:</strong> Both drivers are returning after a year away from F1 — two experienced heads to help build this brand new American team from scratch. Working on their own engine for 2029.</div>
+    <div class="team-note"><strong>What to watch:</strong> Both drivers returning after a year away — building a brand new American team from scratch. Working on their own engine for 2029.</div>
   </div>
 
   <div class="checkered"></div>
 
-  <!-- ══ QUICK REFERENCE ══ -->
-  <div class="section-label">QUICK REFERENCE — ALL 22 DRIVERS</div>
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-    <table class="ref-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Driver</th>
-          <th>Team</th>
-          <th>Nationality</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="num-cell" style="color:#FF8000">1</td><td>Lando Norris 🏆</td><td><span class="color-swatch" style="background:#FF8000"></span>McLaren</td><td>🇬🇧 British</td></tr>
-        <tr><td class="num-cell" style="color:#FF8000">81</td><td>Oscar Piastri</td><td><span class="color-swatch" style="background:#FF8000"></span>McLaren</td><td>🇦🇺 Australian</td></tr>
-        <tr><td class="num-cell" style="color:#29f4d2">63</td><td>George Russell</td><td><span class="color-swatch" style="background:#29f4d2"></span>Mercedes</td><td>🇬🇧 British</td></tr>
-        <tr><td class="num-cell" style="color:#29f4d2">12</td><td>Kimi Antonelli</td><td><span class="color-swatch" style="background:#29f4d2"></span>Mercedes</td><td>🇮🇹 Italian</td></tr>
-        <tr><td class="num-cell" style="color:#3671c6">3</td><td>Max Verstappen</td><td><span class="color-swatch" style="background:#3671c6"></span>Red Bull</td><td>🇳🇱 Dutch</td></tr>
-        <tr><td class="num-cell" style="color:#3671c6">6</td><td>Isack Hadjar</td><td><span class="color-swatch" style="background:#3671c6"></span>Red Bull</td><td>🇫🇷 French</td></tr>
-        <tr><td class="num-cell" style="color:#E8002D">16</td><td>Charles Leclerc</td><td><span class="color-swatch" style="background:#E8002D"></span>Ferrari</td><td>🇲🇨 Monégasque</td></tr>
-        <tr><td class="num-cell" style="color:#E8002D">44</td><td>Lewis Hamilton</td><td><span class="color-swatch" style="background:#E8002D"></span>Ferrari</td><td>🇬🇧 British</td></tr>
-        <tr><td class="num-cell" style="color:#006f62">14</td><td>Fernando Alonso</td><td><span class="color-swatch" style="background:#006f62"></span>Aston Martin</td><td>🇪🇸 Spanish</td></tr>
-        <tr><td class="num-cell" style="color:#006f62">18</td><td>Lance Stroll</td><td><span class="color-swatch" style="background:#006f62"></span>Aston Martin</td><td>🇨🇦 Canadian</td></tr>
-        <tr><td class="num-cell" style="color:#005AFF">23</td><td>Alexander Albon</td><td><span class="color-swatch" style="background:#005AFF"></span>Williams</td><td>🇹🇭 Thai-British</td></tr>
-        <tr><td class="num-cell" style="color:#005AFF">55</td><td>Carlos Sainz</td><td><span class="color-swatch" style="background:#005AFF"></span>Williams</td><td>🇪🇸 Spanish</td></tr>
-        <tr><td class="num-cell" style="color:#0090d0">10</td><td>Pierre Gasly</td><td><span class="color-swatch" style="background:#0090d0"></span>Alpine</td><td>🇫🇷 French</td></tr>
-        <tr><td class="num-cell" style="color:#0090d0">43</td><td>Franco Colapinto</td><td><span class="color-swatch" style="background:#0090d0"></span>Alpine</td><td>🇦🇷 Argentine</td></tr>
-        <tr><td class="num-cell" style="color:#6692ff">30</td><td>Liam Lawson</td><td><span class="color-swatch" style="background:#6692ff"></span>Racing Bulls</td><td>🇳🇿 New Zealander</td></tr>
-        <tr><td class="num-cell" style="color:#6692ff">41</td><td>Arvid Lindblad 🌱</td><td><span class="color-swatch" style="background:#6692ff"></span>Racing Bulls</td><td>🇬🇧 British</td></tr>
-        <tr><td class="num-cell" style="color:#b6babd">31</td><td>Esteban Ocon</td><td><span class="color-swatch" style="background:#b6babd"></span>Haas</td><td>🇫🇷 French</td></tr>
-        <tr><td class="num-cell" style="color:#b6babd">87</td><td>Oliver Bearman</td><td><span class="color-swatch" style="background:#b6babd"></span>Haas</td><td>🇬🇧 British</td></tr>
-        <tr><td class="num-cell" style="color:#c0c0c0">27</td><td>Nico Hülkenberg</td><td><span class="color-swatch" style="background:#c0c0c0"></span>Audi</td><td>🇩🇪 German</td></tr>
-        <tr><td class="num-cell" style="color:#c0c0c0">5</td><td>Gabriel Bortoleto</td><td><span class="color-swatch" style="background:#c0c0c0"></span>Audi</td><td>🇧🇷 Brazilian</td></tr>
-        <tr><td class="num-cell" style="color:#ccc">11</td><td>Sergio Pérez 🔄</td><td><span class="color-swatch" style="background:#fff"></span>Cadillac</td><td>🇲🇽 Mexican</td></tr>
-        <tr><td class="num-cell" style="color:#ccc">77</td><td>Valtteri Bottas 🔄</td><td><span class="color-swatch" style="background:#fff"></span>Cadillac</td><td>🇫🇮 Finnish</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="font-size:12px;color:var(--muted);margin-top:10px;padding:0 4px">
-    🏆 = Reigning World Champion &nbsp;·&nbsp; 🌱 = Rookie (F1 debut) &nbsp;·&nbsp; 🔄 = Returning after year out
+  <!-- ══ ENGINE KEY ══ -->
+  <div class="section-label" id="engines">ENGINE SUPPLIERS IN 2026</div>
+  <div class="engine-grid">
+    <div class="engine-card" id="engine-mercedes">
+      <div class="eng-name" style="color:#29f4d2">Mercedes</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#29f4d2"></span>Mercedes (works)</div>
+        <div><span class="eng-dot" style="background:#0090d0"></span>Alpine</div>
+        <div><span class="eng-dot" style="background:#FF8000"></span>McLaren</div>
+        <div><span class="eng-dot" style="background:#005AFF"></span>Williams</div>
+      </div>
+    </div>
+    <div class="engine-card" id="engine-ferrari">
+      <div class="eng-name" style="color:#E8002D">Ferrari</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#E8002D"></span>Ferrari (works)</div>
+        <div><span class="eng-dot" style="background:#b6babd"></span>Haas</div>
+        <div><span class="eng-dot" style="background:#ddd"></span>Cadillac</div>
+      </div>
+    </div>
+    <div class="engine-card" id="engine-redbull">
+      <div class="eng-name" style="color:#3671c6">Red Bull / Ford</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#3671c6"></span>Red Bull Racing</div>
+        <div><span class="eng-dot" style="background:#6692ff"></span>Racing Bulls</div>
+        <div style="color:#555;font-size:11px;margin-top:4px">Ford return to F1 for first time since 2004</div>
+      </div>
+    </div>
+    <div class="engine-card" id="engine-honda">
+      <div class="eng-name" style="color:#e00024">Honda</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#006f62"></span>Aston Martin</div>
+        <div style="color:#555;font-size:11px;margin-top:4px">Honda's standalone return — previously powered Red Bull</div>
+      </div>
+    </div>
+    <div class="engine-card" id="engine-audi">
+      <div class="eng-name" style="color:#b3b3b3">Audi</div>
+      <div class="eng-users">
+        <div><span class="eng-dot" style="background:#c0c0c0"></span>Audi (works team)</div>
+        <div style="color:#555;font-size:11px;margin-top:4px">Brand new to F1 — took over the Sauber team</div>
+      </div>
+    </div>
   </div>
 
   <!-- ══ FOOTER ══ -->
@@ -941,5 +1133,84 @@
   </div>
 
 </div>
+
+<!-- ══ ENGINE MODALS ══ -->
+<div class="modal-overlay" id="modal-mercedes" onclick="if(event.target===this)closeEngine()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEngine()">✕</button>
+    <div class="modal-title" style="color:#29f4d2">⚙️ Mercedes Engine</div>
+    <div class="modal-sub">AMG F1 M26 Power Unit · Works supplier</div>
+    <div class="modal-teams">
+      <div class="modal-team-row"><span class="modal-dot" style="background:#29f4d2"></span>Mercedes-AMG (works)</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#FF8000"></span>McLaren</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#0090d0"></span>Alpine</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#005AFF"></span>Williams</div>
+    </div>
+    <div class="modal-note">4 teams use this engine — the most of any supplier in 2026. Early pre-season testing indicated Mercedes may have got the new hybrid rules exactly right.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-ferrari" onclick="if(event.target===this)closeEngine()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEngine()">✕</button>
+    <div class="modal-title" style="color:#E8002D">⚙️ Ferrari Engine</div>
+    <div class="modal-sub">Ferrari 066/10 Power Unit · Works supplier</div>
+    <div class="modal-teams">
+      <div class="modal-team-row"><span class="modal-dot" style="background:#E8002D"></span>Scuderia Ferrari (works)</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#b6babd"></span>Haas</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#ddd"></span>Cadillac (new for 2026)</div>
+    </div>
+    <div class="modal-note">Ferrari supply 3 teams. The works team will be hoping a strong engine helps Hamilton and Leclerc challenge for the championship.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-redbull" onclick="if(event.target===this)closeEngine()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEngine()">✕</button>
+    <div class="modal-title" style="color:#3671c6">⚙️ Red Bull / Ford Engine</div>
+    <div class="modal-sub">Red Bull Powertrains · Ford technology partner</div>
+    <div class="modal-teams">
+      <div class="modal-team-row"><span class="modal-dot" style="background:#3671c6"></span>Red Bull Racing</div>
+      <div class="modal-team-row"><span class="modal-dot" style="background:#6692ff"></span>Visa Cash App RB</div>
+    </div>
+    <div class="modal-note">Ford return to Formula 1 for the first time since 2004, partnering with Red Bull's in-house engine division. The famous American brand are back!</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-honda" onclick="if(event.target===this)closeEngine()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEngine()">✕</button>
+    <div class="modal-title" style="color:#e00024">⚙️ Honda Engine</div>
+    <div class="modal-sub">Honda Racing Corporation · Exclusive supplier</div>
+    <div class="modal-teams">
+      <div class="modal-team-row"><span class="modal-dot" style="background:#006f62"></span>Aston Martin (exclusive)</div>
+    </div>
+    <div class="modal-note">Honda previously powered Red Bull to 4 world championships but split at the end of 2025. They now power Aston Martin exclusively — a fresh start for both.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-audi" onclick="if(event.target===this)closeEngine()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEngine()">✕</button>
+    <div class="modal-title" style="color:#c0c0c0">⚙️ Audi Engine</div>
+    <div class="modal-sub">Audi F1 Power Unit · Brand new for 2026</div>
+    <div class="modal-teams">
+      <div class="modal-team-row"><span class="modal-dot" style="background:#c0c0c0"></span>Audi F1 Team (works)</div>
+    </div>
+    <div class="modal-note">Audi are completely new to F1, taking over the former Sauber team and building their own engine from scratch. The new 2026 regulations — designed to encourage new manufacturers — is exactly why they chose this moment to enter.</div>
+  </div>
+</div>
+
+<script>
+  function openEngine(name) {
+    document.getElementById('modal-' + name).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeEngine() {
+    document.querySelectorAll('.modal-overlay').forEach(function(m){ m.classList.remove('open'); });
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeEngine(); });
+</script>
 </body>
 </html>

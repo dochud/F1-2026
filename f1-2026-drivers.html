@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 2026 – Driver Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dark: #0a0a0a;
+    --card: #141414;
+    --card2: #1c1c1c;
+    --text: #F0F0F0;
+    --muted: #666;
+    --border: rgba(255,255,255,0.07);
+    --red: #E8002D;
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    padding-bottom: 60px;
+  }
+
+  /* ─── NAV ─── */
+  .topnav {
+    background: #111;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 48px;
+  }
+  .topnav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 7px;
+    flex-shrink: 0;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: #ccc;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .topnav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .topnav-links a {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 11px;
+    border-radius: 5px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .nav-active { background: rgba(232,0,45,0.18); color: var(--red) !important; }
+  .nav-inactive { color: #bbb; }
+  .nav-inactive:hover { background: rgba(255,255,255,0.07); color: #fff !important; }
+  .nav-external { color: #777 !important; border: 1px solid rgba(255,255,255,0.1); }
+  .nav-external:hover { background: rgba(255,255,255,0.06); color: #ccc !important; }
+  .nav-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.12); margin: 0 6px; flex-shrink: 0; }
+
+  @media (max-width: 620px) {
+    .nav-hamburger { display: flex; }
+    .topnav-links { display: none; }
+    .nav-divider { display: none; }
+  }
+  .nav-drawer {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 16px 16px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    background: #111;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a {
+    display: block;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: #ddd;
+    transition: background 0.15s;
+  }
+  .nav-drawer a.nav-active {
+    background: rgba(232,0,45,0.15);
+    border-color: rgba(232,0,45,0.3);
+    color: var(--red) !important;
+  }
+  .nav-drawer a.nav-external { color: #aaa; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(160deg, #0a0a0a 0%, #111 60%, #0a0a0a 100%);
+    border-bottom: 3px solid var(--red);
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '22';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 300px;
+    color: rgba(255,255,255,0.025);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 9vw, 70px);
+    line-height: 0.95;
+    position: relative;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero-sub {
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--muted);
+    position: relative;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 18px; }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 0 4px;
+  }
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+  .filter-btn.active {
+    color: #fff;
+    border-color: currentColor;
+  }
+  .filter-btn[data-team="all"].active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); color: #fff; }
+
+  /* ─── DRIVER GRID ─── */
+  .driver-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+  @media (max-width: 720px) { .driver-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 500px) { .driver-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+
+  /* ─── DRIVER CARD ─── */
+  .driver-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .driver-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.14); }
+  .driver-card.hidden { display: none; }
+
+  /* Coloured top bar in team colour */
+  .card-bar {
+    height: 4px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Number watermark */
+  .card-inner {
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    position: relative;
+  }
+  .card-num-bg {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    opacity: 0.07;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Photo circle */
+  .card-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid;
+    background: var(--card2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .card-photo .photo-fallback {
+    font-size: 36px;
+    opacity: 0.3;
+    line-height: 1;
+  }
+
+  /* Driver number */
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  /* Driver name + detail */
+  .card-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .card-detail {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .card-team {
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin-top: -4px;
+  }
+
+  /* Tags */
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    margin-top: -2px;
+  }
+  .tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .tag-champ  { background: rgba(245,197,24,0.15);  color: #F5C518; border: 1px solid rgba(245,197,24,0.35); }
+  .tag-rookie { background: rgba(0,196,140,0.15);   color: #00C48C; border: 1px solid rgba(0,196,140,0.3);  }
+  .tag-return { background: rgba(0,153,218,0.15);   color: #0099DA; border: 1px solid rgba(0,153,218,0.35); }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232,0,45,0.2);
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+  }
+  .footer strong { color: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-logo" href="index.html">F1 2026</a>
+    <div class="topnav-links" id="navLinks">
+      <a href="index.html" class="nav-inactive">🏁 Rules Guide</a>
+      <a href="f1-2026-teams.html" class="nav-inactive">🏎️ Teams &amp; Drivers</a>
+      <a href="f1-2026-drivers.html" class="nav-active">👤 Driver Guide</a>
+      <div class="nav-divider"></div>
+      <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
+      <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
+    </div>
+    <button class="nav-hamburger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" class="nav-inactive">🏁 Rules Guide</a>
+    <a href="f1-2026-teams.html" class="nav-inactive">🏎️ Teams &amp; Drivers</a>
+    <a href="f1-2026-drivers.html" class="nav-active">👤 Driver Guide</a>
+    <a href="https://www.formula1.com/en/results/2026/drivers" target="_blank" class="nav-external">🏆 Drivers Standings</a>
+    <a href="https://www.formula1.com/en/results/2026/team" target="_blank" class="nav-external">🏗️ Teams Standings</a>
+  </div>
+</nav>
+<script>
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+</script>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-badge">👤 2026 SEASON</div>
+  <h1>Driver <span>Guide</span></h1>
+  <p class="hero-sub">All 22 drivers · tap a team to filter</p>
+</div>
+
+<div class="container">
+
+  <!-- ══ FILTER BAR ══ -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-team="all">All Drivers</button>
+    <button class="filter-btn" data-team="mclaren"      style="--tc:#FF8000; color:#FF8000; border-color:#FF8000">McLaren</button>
+    <button class="filter-btn" data-team="mercedes"     style="--tc:#29f4d2; color:#29f4d2; border-color:#29f4d2">Mercedes</button>
+    <button class="filter-btn" data-team="red-bull"     style="--tc:#3671c6; color:#3671c6; border-color:#3671c6">Red Bull</button>
+    <button class="filter-btn" data-team="ferrari"      style="--tc:#E8002D; color:#E8002D; border-color:#E8002D">Ferrari</button>
+    <button class="filter-btn" data-team="aston-martin" style="--tc:#006f62; color:#006f62; border-color:#006f62">Aston Martin</button>
+    <button class="filter-btn" data-team="williams"     style="--tc:#005AFF; color:#005AFF; border-color:#005AFF">Williams</button>
+    <button class="filter-btn" data-team="alpine"       style="--tc:#0090d0; color:#0090d0; border-color:#0090d0">Alpine</button>
+    <button class="filter-btn" data-team="racing-bulls" style="--tc:#6692ff; color:#6692ff; border-color:#6692ff">Racing Bulls</button>
+    <button class="filter-btn" data-team="haas"         style="--tc:#b6babd; color:#b6babd; border-color:#b6babd">Haas</button>
+    <button class="filter-btn" data-team="audi"         style="--tc:#c0c0c0; color:#c0c0c0; border-color:#c0c0c0">Audi</button>
+    <button class="filter-btn" data-team="cadillac"     style="--tc:#ddd;    color:#ddd;    border-color:#ddd">Cadillac</button>
+  </div>
+
+  <!-- ══ DRIVER GRID ══ -->
+  <div class="driver-grid" id="driverGrid">
+
+    <!-- McLaren -->
+    <div class="driver-card" data-team="mclaren">
+      <div class="card-bar" style="background:#FF8000"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#FF8000">1</div>
+        <div class="card-photo" style="border-color:#FF8000">
+          <img src="images/drivers/norris.png" alt="Lando Norris" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#FF8000">1</div>
+        <div class="card-name">Lando Norris</div>
+        <div class="card-team" style="color:#FF8000">McLaren</div>
+        <div class="card-detail">🇬🇧 British · Age 25</div>
+        <div class="card-tags"><span class="tag tag-champ">🏆 Champion</span></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="mclaren">
+      <div class="card-bar" style="background:#FF8000"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#FF8000">81</div>
+        <div class="card-photo" style="border-color:#FF8000">
+          <img src="images/drivers/piastri.png" alt="Oscar Piastri" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#FF8000">81</div>
+        <div class="card-name">Oscar Piastri</div>
+        <div class="card-team" style="color:#FF8000">McLaren</div>
+        <div class="card-detail">🇦🇺 Australian · Age 24</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Mercedes -->
+    <div class="driver-card" data-team="mercedes">
+      <div class="card-bar" style="background:#29f4d2"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#29f4d2">63</div>
+        <div class="card-photo" style="border-color:#29f4d2">
+          <img src="images/drivers/russell.png" alt="George Russell" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#29f4d2">63</div>
+        <div class="card-name">George Russell</div>
+        <div class="card-team" style="color:#29f4d2">Mercedes</div>
+        <div class="card-detail">🇬🇧 British · Age 27</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="mercedes">
+      <div class="card-bar" style="background:#29f4d2"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#29f4d2">12</div>
+        <div class="card-photo" style="border-color:#29f4d2">
+          <img src="images/drivers/antonelli.png" alt="Kimi Antonelli" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#29f4d2">12</div>
+        <div class="card-name">Kimi Antonelli</div>
+        <div class="card-team" style="color:#29f4d2">Mercedes</div>
+        <div class="card-detail">🇮🇹 Italian · Age 19</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Red Bull -->
+    <div class="driver-card" data-team="red-bull">
+      <div class="card-bar" style="background:#3671c6"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#3671c6">3</div>
+        <div class="card-photo" style="border-color:#3671c6">
+          <img src="images/drivers/verstappen.png" alt="Max Verstappen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#3671c6">3</div>
+        <div class="card-name">Max Verstappen</div>
+        <div class="card-team" style="color:#3671c6">Red Bull</div>
+        <div class="card-detail">🇳🇱 Dutch · Age 28</div>
+        <div class="card-tags"><span class="tag tag-champ">4× Champ</span></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="red-bull">
+      <div class="card-bar" style="background:#3671c6"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#3671c6">6</div>
+        <div class="card-photo" style="border-color:#3671c6">
+          <img src="images/drivers/hadjar.png" alt="Isack Hadjar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#3671c6">6</div>
+        <div class="card-name">Isack Hadjar</div>
+        <div class="card-team" style="color:#3671c6">Red Bull</div>
+        <div class="card-detail">🇫🇷 French · Age 21</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Ferrari -->
+    <div class="driver-card" data-team="ferrari">
+      <div class="card-bar" style="background:#E8002D"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#E8002D">16</div>
+        <div class="card-photo" style="border-color:#E8002D">
+          <img src="images/drivers/leclerc.png" alt="Charles Leclerc" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#E8002D">16</div>
+        <div class="card-name">Charles Leclerc</div>
+        <div class="card-team" style="color:#E8002D">Ferrari</div>
+        <div class="card-detail">🇲🇨 Monégasque · Age 28</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="ferrari">
+      <div class="card-bar" style="background:#E8002D"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#E8002D">44</div>
+        <div class="card-photo" style="border-color:#E8002D">
+          <img src="images/drivers/hamilton.png" alt="Lewis Hamilton" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#E8002D">44</div>
+        <div class="card-name">Lewis Hamilton</div>
+        <div class="card-team" style="color:#E8002D">Ferrari</div>
+        <div class="card-detail">🇬🇧 British · Age 41</div>
+        <div class="card-tags"><span class="tag tag-champ">7× Champ</span></div>
+      </div>
+    </div>
+
+    <!-- Aston Martin -->
+    <div class="driver-card" data-team="aston-martin">
+      <div class="card-bar" style="background:#006f62"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#006f62">14</div>
+        <div class="card-photo" style="border-color:#006f62">
+          <img src="images/drivers/alonso.png" alt="Fernando Alonso" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#006f62">14</div>
+        <div class="card-name">Fernando Alonso</div>
+        <div class="card-team" style="color:#006f62">Aston Martin</div>
+        <div class="card-detail">🇪🇸 Spanish · Age 44</div>
+        <div class="card-tags"><span class="tag tag-champ">2× Champ</span></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="aston-martin">
+      <div class="card-bar" style="background:#006f62"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#006f62">18</div>
+        <div class="card-photo" style="border-color:#006f62">
+          <img src="images/drivers/stroll.png" alt="Lance Stroll" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#006f62">18</div>
+        <div class="card-name">Lance Stroll</div>
+        <div class="card-team" style="color:#006f62">Aston Martin</div>
+        <div class="card-detail">🇨🇦 Canadian · Age 27</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Williams -->
+    <div class="driver-card" data-team="williams">
+      <div class="card-bar" style="background:#005AFF"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#005AFF">23</div>
+        <div class="card-photo" style="border-color:#005AFF">
+          <img src="images/drivers/albon.png" alt="Alexander Albon" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#005AFF">23</div>
+        <div class="card-name">Alexander Albon</div>
+        <div class="card-team" style="color:#005AFF">Williams</div>
+        <div class="card-detail">🇹🇭 Thai-British · Age 29</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="williams">
+      <div class="card-bar" style="background:#005AFF"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#005AFF">55</div>
+        <div class="card-photo" style="border-color:#005AFF">
+          <img src="images/drivers/sainz.png" alt="Carlos Sainz" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#005AFF">55</div>
+        <div class="card-name">Carlos Sainz</div>
+        <div class="card-team" style="color:#005AFF">Williams</div>
+        <div class="card-detail">🇪🇸 Spanish · Age 31</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Alpine -->
+    <div class="driver-card" data-team="alpine">
+      <div class="card-bar" style="background:#0090d0"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#0090d0">10</div>
+        <div class="card-photo" style="border-color:#0090d0">
+          <img src="images/drivers/gasly.png" alt="Pierre Gasly" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#0090d0">10</div>
+        <div class="card-name">Pierre Gasly</div>
+        <div class="card-team" style="color:#0090d0">Alpine</div>
+        <div class="card-detail">🇫🇷 French · Age 29</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="alpine">
+      <div class="card-bar" style="background:#0090d0"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#0090d0">43</div>
+        <div class="card-photo" style="border-color:#0090d0">
+          <img src="images/drivers/colapinto.png" alt="Franco Colapinto" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#0090d0">43</div>
+        <div class="card-name">Franco Colapinto</div>
+        <div class="card-team" style="color:#0090d0">Alpine</div>
+        <div class="card-detail">🇦🇷 Argentine · Age 22</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Racing Bulls -->
+    <div class="driver-card" data-team="racing-bulls">
+      <div class="card-bar" style="background:#6692ff"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#6692ff">30</div>
+        <div class="card-photo" style="border-color:#6692ff">
+          <img src="images/drivers/lawson.png" alt="Liam Lawson" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#6692ff">30</div>
+        <div class="card-name">Liam Lawson</div>
+        <div class="card-team" style="color:#6692ff">Racing Bulls</div>
+        <div class="card-detail">🇳🇿 New Zealander · Age 23</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="racing-bulls">
+      <div class="card-bar" style="background:#6692ff"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#6692ff">41</div>
+        <div class="card-photo" style="border-color:#6692ff">
+          <img src="images/drivers/lindblad.png" alt="Arvid Lindblad" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#6692ff">41</div>
+        <div class="card-name">Arvid Lindblad</div>
+        <div class="card-team" style="color:#6692ff">Racing Bulls</div>
+        <div class="card-detail">🇬🇧 British · Age 18</div>
+        <div class="card-tags"><span class="tag tag-rookie">🌱 Rookie</span></div>
+      </div>
+    </div>
+
+    <!-- Haas -->
+    <div class="driver-card" data-team="haas">
+      <div class="card-bar" style="background:#b6babd"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#b6babd">31</div>
+        <div class="card-photo" style="border-color:#b6babd">
+          <img src="images/drivers/ocon.png" alt="Esteban Ocon" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#b6babd">31</div>
+        <div class="card-name">Esteban Ocon</div>
+        <div class="card-team" style="color:#b6babd">Haas</div>
+        <div class="card-detail">🇫🇷 French · Age 29</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="haas">
+      <div class="card-bar" style="background:#b6babd"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#b6babd">87</div>
+        <div class="card-photo" style="border-color:#b6babd">
+          <img src="images/drivers/bearman.png" alt="Oliver Bearman" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#b6babd">87</div>
+        <div class="card-name">Oliver Bearman</div>
+        <div class="card-team" style="color:#b6babd">Haas</div>
+        <div class="card-detail">🇬🇧 British · Age 19</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Audi -->
+    <div class="driver-card" data-team="audi">
+      <div class="card-bar" style="background:#c0c0c0"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#c0c0c0">27</div>
+        <div class="card-photo" style="border-color:#c0c0c0">
+          <img src="images/drivers/hulkenberg.png" alt="Nico Hulkenberg" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#c0c0c0">27</div>
+        <div class="card-name">Nico Hülkenberg</div>
+        <div class="card-team" style="color:#c0c0c0">Audi</div>
+        <div class="card-detail">🇩🇪 German · Age 38</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="audi">
+      <div class="card-bar" style="background:#c0c0c0"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#c0c0c0">5</div>
+        <div class="card-photo" style="border-color:#c0c0c0">
+          <img src="images/drivers/bortoleto.png" alt="Gabriel Bortoleto" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#c0c0c0">5</div>
+        <div class="card-name">Gabriel Bortoleto</div>
+        <div class="card-team" style="color:#c0c0c0">Audi</div>
+        <div class="card-detail">🇧🇷 Brazilian · Age 21</div>
+        <div class="card-tags"></div>
+      </div>
+    </div>
+
+    <!-- Cadillac -->
+    <div class="driver-card" data-team="cadillac">
+      <div class="card-bar" style="background:#ddd"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#ddd">11</div>
+        <div class="card-photo" style="border-color:#ddd">
+          <img src="images/drivers/perez.png" alt="Sergio Perez" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#ddd">11</div>
+        <div class="card-name">Sergio Pérez</div>
+        <div class="card-team" style="color:#ddd">Cadillac</div>
+        <div class="card-detail">🇲🇽 Mexican · Age 36</div>
+        <div class="card-tags"><span class="tag tag-return">🔄 Returned</span></div>
+      </div>
+    </div>
+
+    <div class="driver-card" data-team="cadillac">
+      <div class="card-bar" style="background:#ddd"></div>
+      <div class="card-inner">
+        <div class="card-num-bg" style="color:#ddd">77</div>
+        <div class="card-photo" style="border-color:#ddd">
+          <img src="images/drivers/bottas.png" alt="Valtteri Bottas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="photo-fallback" style="display:none">👤</span>
+        </div>
+        <div class="card-num" style="color:#ddd">77</div>
+        <div class="card-name">Valtteri Bottas</div>
+        <div class="card-team" style="color:#ddd">Cadillac</div>
+        <div class="card-detail">🇫🇮 Finnish · Age 36</div>
+        <div class="card-tags"><span class="tag tag-return">🔄 Returned</span></div>
+      </div>
+    </div>
+
+  </div><!-- /driver-grid -->
+
+  <!-- ══ LEGEND ══ -->
+  <div class="legend">
+    <span class="legend-item"><span class="tag tag-champ">🏆 Champion</span> World champion (current or past)</span>
+    <span class="legend-item"><span class="tag tag-rookie">🌱 Rookie</span> First full F1 season</span>
+    <span class="legend-item"><span class="tag tag-return">🔄 Returned</span> Back after a year away</span>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <p>Made with ❤️ as a beginner's guide to <strong>F1 2026</strong></p>
+    <p style="margin-top:6px">Sources: Formula1.com · RaceFans · ESPN · Wikipedia</p>
+  </div>
+
+</div>
+
+<script>
+  var btns  = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.driver-card');
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var team = this.dataset.team;
+
+      // Update button states
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Show / hide cards
+      cards.forEach(function(card) {
+        if (team === 'all' || card.dataset.team === team) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
